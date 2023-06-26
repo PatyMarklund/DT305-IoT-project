@@ -38,11 +38,12 @@ led = Pin("LED", Pin.OUT)   # led pin initialization for Raspberry Pi Pico W
 AIO_SERVER = "io.adafruit.com"
 AIO_PORT = 1883
 AIO_USER = "Paty_Marklund"
-AIO_KEY = "aio_MflH12VcW9kHOUl9FAzyjsvY4SlV"
+AIO_KEY = "aio_yTAH86DEYIOID7IgCHUthz3JOHVq"
 AIO_CLIENT_ID = ubinascii.hexlify(machine.unique_id())  # Can be anything
 AIO_LIGHTS_FEED = "Paty_Marklund/feeds/lights"
 AIO_TEMP_FEED = "Paty_Marklund/feeds/temperature"
 AIO_HUMID_FEED = "Paty_Marklund/feeds/humidity"
+AIO_MESSAGE_FEED = "Paty_Marklund/feeds/message"
 
 # END SETTINGS
 
@@ -88,30 +89,48 @@ def get_temperature():
     sensor = DHT11(machine.Pin(28))
     global last_random_sent_ticks
     global RANDOMS_INTERVAL
-
+    # temp = 0
+    # humid = 0
+    
     if ((time.ticks_ms() - last_random_sent_ticks) < RANDOMS_INTERVAL):
         return; # Too soon since last one sent.
     
     while True:
         time.sleep(2)
         try:
-            t = sensor.temperature
+            temp = sensor.temperature
             time.sleep(2)
-            h = sensor.humidity
+            humid = sensor.humidity
         except:
             print("An exception occurred")  
             continue  
+        message = weather_report(temp, humid)
             
-        print("Publishing: {0} to {1} ... ".format(t, AIO_TEMP_FEED), end='')
-        print("Publishing: {0} to {1} ... ".format(h, AIO_HUMID_FEED), end='')
+        print("Publishing: {0} to {1} ... ".format(temp, AIO_TEMP_FEED), end='')
+        print("Publishing: {0} to {1} ... ".format(humid, AIO_HUMID_FEED), end='')
+        print("Publishing: {0} to {1} ... ".format(message, AIO_MESSAGE_FEED), end='')
+        
         try:
-            client.publish(topic=AIO_TEMP_FEED, msg=str(t))
-            client.publish(topic=AIO_HUMID_FEED, msg=str(h))
+            client.publish(topic=AIO_TEMP_FEED, msg=str(temp))
+            client.publish(topic=AIO_HUMID_FEED, msg=str(humid))
+            client.publish(topic=AIO_MESSAGE_FEED, msg=str(message))
             print("DONE")
         except Exception as e:
             print("FAILED")
         finally:
             last_random_sent_ticks = time.ticks_ms()
+        #return temp, humid
+            
+def weather_report(temperature, humidity):
+    message = ""
+    if temperature < 5:
+        message = "Too cold!"
+    else:
+        message = "Good weather!"
+    #elif temperature < 20 & temperature > 5:
+        #message = "Good weather"
+    return message
+    #print("Publishing: {0} to {1} ... ".format(message, AIO_MESSAGE_FEED), end='')
 
 # Try WiFi Connection
 try:
@@ -136,6 +155,7 @@ try:                      # Code between try: and finally: may cause an error
     while 1:              # Repeat this loop forever
         client.check_msg()# Action a message if one is received. Non-blocking.
         get_temperature()
+        #weather_report(temp, humid)
         #send_random()     # Send a random number to Adafruit IO if it's time.
 finally:                  # If an exception is thrown ...
     client.disconnect()   # ... disconnect the client and clean up.
@@ -156,8 +176,8 @@ finally:                  # If an exception is thrown ...
     
     * Theory part 
     
-    - Create the template
-    - Import code to github
+    - Create the template (OK)
+    - Import code to github (OK)
     - Complete Quiz #3
     
     """
