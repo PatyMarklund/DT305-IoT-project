@@ -13,37 +13,36 @@ from machine import I2C, Pin
 from pico_i2c_lcd import I2cLcd
 i2c = I2C(0, sda=Pin(8), scl=Pin(9), freq=400000)
 
-I2C_ADDR = i2c.scan()[0]
-lcd = I2cLcd(i2c, I2C_ADDR, 2, 16)
-while True:
-  print(I2C_ADDR, "| Hex:",hex(I2C_ADDR))
-  print()
-  lcd.move_to(0,0)
-  lcd.putstr("I2CAddress:"+hex(I2C_ADDR)+"\n")
-  lcd.move_to(0,1)
-  lcd.putstr("Nice weather!")
-  lcd.backlight_on()
+# I2C_ADDR = i2c.scan()[0]
+# lcd = I2cLcd(i2c, I2C_ADDR, 2, 16)
+# while True:
+#   print(I2C_ADDR, "| Hex:",hex(I2C_ADDR))
+#   print()
+#   lcd.move_to(0,0)
+#   lcd.putstr("I2CAddress:"+hex(I2C_ADDR)+"\n")
+#   lcd.move_to(0,1)
+#   lcd.putstr("Nice weather!")
+#   lcd.backlight_on()
 
 # The GPIO number is 13 which is equal to the pin number 17
-"""
-pin = Pin(28, Pin.OUT, Pin.PULL_DOWN)
-sensor = DHT11(pin)
 
-while True:
-    time.sleep(2)
-    try:
-        t = sensor.temperature
-        time.sleep(2)
-        h = sensor.humidity
-    except:
-        print("An exception occurred")  
-        continue  
-    print("Temperature testing: {}".format(sensor.temperature))
-    print("Humidity: {}".format(sensor.humidity))
-"""
+# pin = Pin(28, Pin.OUT, Pin.PULL_DOWN)
+# sensor = DHT11(pin)
+
+# while True:
+#     time.sleep(2)
+#     try:
+#         t = sensor.temperature
+#         time.sleep(2)
+#         h = sensor.humidity
+#     except:
+#         print("An exception occurred")  
+#         continue  
+#     print("Temperature testing: {}".format(sensor.temperature))
+#     print("Humidity: {}".format(sensor.humidity))
+
 
 # BEGIN SETTINGS
-# These need to be change to suit your environment
 RANDOMS_INTERVAL = 1000   # milliseconds
 last_random_sent_ticks = 0  # milliseconds
 led = Pin("LED", Pin.OUT)   # led pin initialization for Raspberry Pi Pico W
@@ -53,7 +52,7 @@ AIO_SERVER = "io.adafruit.com"
 AIO_PORT = 1883
 AIO_USER = "Paty_Marklund"
 AIO_KEY = "aio_yTAH86DEYIOID7IgCHUthz3JOHVq"
-AIO_CLIENT_ID = ubinascii.hexlify(machine.unique_id())  # Can be anything
+AIO_CLIENT_ID = ubinascii.hexlify(machine.unique_id()) 
 AIO_LIGHTS_FEED = "Paty_Marklund/feeds/lights"
 AIO_TEMP_FEED = "Paty_Marklund/feeds/temperature"
 AIO_HUMID_FEED = "Paty_Marklund/feeds/humidity"
@@ -103,8 +102,6 @@ def get_temperature():
     sensor = DHT11(machine.Pin(28))
     global last_random_sent_ticks
     global RANDOMS_INTERVAL
-    # temp = 0
-    # humid = 0
     
     if ((time.ticks_ms() - last_random_sent_ticks) < RANDOMS_INTERVAL):
         return; # Too soon since last one sent.
@@ -136,15 +133,46 @@ def get_temperature():
         #return temp, humid
             
 def weather_report(temperature, humidity):
-    message = ""
-    if temperature < 5:
-        message = "Too cold!"
+    message_1 = " "
+    message_2 = " "
+    if temperature > 30:
+        message_1 = str(temperature)+"Too hot!"
+        message_2 = "Shorts & flops!"
+    elif temperature > 25:
+        message_1 = str(temperature)+"Warm weather"
+        message_2 = "T-shirt & hat"
+    elif temperature > 20:
+        message_1 = str(temperature)+"Nice weather"
+        message_2 = "Light jacket"
+    elif temperature > 10:
+        message_1 = str(temperature)+"Bit chill"
+        message_2 = "Jacket"
+    elif temperature > 0 and humidity > 70:
+        message_1 = str(temperature)+"Rainy day"
+        message_2 = "Rain cloths"
+    elif temperature > 0:
+        message_1 = str(temperature)+"Too cold"
+        message_2 = "Overalls"
+    elif temperature < 0 and humidity > 70:
+        message_1 = str(temperature)+"Snow day"
+        message_2 = "Put everything"
     else:
-        message = "Good weather!"
-    #elif temperature < 20 & temperature > 5:
-        #message = "Good weather"
-    return message
-    #print("Publishing: {0} to {1} ... ".format(message, AIO_MESSAGE_FEED), end='')
+        message_1 = str(temperature)+"Too cold"
+        message_2 = "Overalls"
+        
+    return message_1
+    
+def display_message(temperature, message):
+    I2C_ADDR = i2c.scan()[0]
+    lcd = I2cLcd(i2c, I2C_ADDR, 2, 16)
+    while True:
+        print(I2C_ADDR, "| Hex:",hex(I2C_ADDR))
+        print()
+        lcd.move_to(0,0)
+        lcd.putstr("I2CAddress:"+hex(I2C_ADDR)+"\n")
+        lcd.move_to(0,1)
+        lcd.putstr("Nice weather!")
+        lcd.backlight_on()
 
 # Try WiFi Connection
 try:
@@ -160,7 +188,6 @@ client.set_callback(sub_cb)
 client.connect()
 client.subscribe(AIO_LIGHTS_FEED)
 print("Connected to %s, subscribed to %s topic" % (AIO_SERVER, AIO_LIGHTS_FEED))
-
 
 
 try:                      # Code between try: and finally: may cause an error
@@ -180,18 +207,15 @@ finally:                  # If an exception is thrown ...
     """
     * Code part:
     
-    - Find how to connect the display with the board
     - Create code to calculate the temperature and humidity to send a message of the weather
         (either the code will be done on the board or on the dashboard)
     - Send message from dashboard to the display for the weather condition
-    - Set up display and display the message
     - Separate methods out of the main()
     - Clean the code
     
     * Theory part 
     
-    - Create the template (OK)
-    - Import code to github (OK)
     - Complete Quiz #3
+    - Write report on GitHub
     
     """
