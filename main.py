@@ -64,20 +64,20 @@ def get_temperature():
         time.sleep(2)
         try:
             temp = sensor.temperature
-            #prev_temp = temp
             time.sleep(2)
             humid = sensor.humidity
-            #prev_humid = humid
         except:
             print("An exception occurred")  
             continue  
         
-        message_1, message_2 = weather_report(temp, humid)
-        publish_message = message_1 + " / " + message_2
+        # message_1, message_2 = weather_report(temp, humid)
+        # publish_message = message_1 + " / " + message_2
         
         if (prev_humid is None or prev_temp is None) or (temp != prev_temp and humid != prev_humid):
             prev_temp = temp
             prev_humid = humid
+            message_1, message_2 = weather_report(temp, humid)
+            publish_message = message_1 + " / " + message_2
             display_message(message_1, message_2)
             
         print("Publishing: {0} to {1} ... ".format(temp, AIO_TEMP_FEED), end='')
