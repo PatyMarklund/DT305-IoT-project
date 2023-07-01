@@ -66,8 +66,6 @@ def get_temperature():
             prev_humid = humid
             message_1, message_2 = weather_report(temp, humid)
             publish_message = message_1 + " / " + message_2
-            message_1, message_2 = weather_report(temp, humid)
-            publish_message = message_1 + " / " + message_2
             display_message(message_1, message_2)
             
         print("Publishing: {0} to {1} ... ".format(temp, AIO_TEMP_FEED), end='')
