@@ -20,8 +20,8 @@ led = Pin("LED", Pin.OUT)   # led pin initialization for Raspberry Pi Pico W
 # Adafruit IO (AIO) configuration
 AIO_SERVER = "io.adafruit.com"
 AIO_PORT = 1883
-AIO_USER = "user_name"
-AIO_KEY = "key_name"
+AIO_USER = "Paty_Marklund"
+AIO_KEY = "aio_AvMy569PO2JvvmzW6AVaWGu8DcTp"
 AIO_CLIENT_ID = ubinascii.hexlify(machine.unique_id()) 
 AIO_LIGHTS_FEED = "Paty_Marklund/feeds/lights"
 AIO_TEMP_FEED = "Paty_Marklund/feeds/temperature"
