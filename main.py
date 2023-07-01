@@ -3,11 +3,9 @@ from mqtt import MQTTClient   # For use of MQTT protocol to talk to Adafruit IO
 import ubinascii              # Conversions between binary data and various encodings
 import machine                # Interfaces with hardware components
 import micropython            # Needed to run any MicroPython code
-import random                 # Random number generator
 from machine import Pin       # Define pin
 import utime as time
 from dht import DHT11
-# from machine import DHT11
 import wifi
 from machine import I2C, Pin
 from pico_i2c_lcd import I2cLcd
@@ -22,35 +20,28 @@ led = Pin("LED", Pin.OUT)   # led pin initialization for Raspberry Pi Pico W
 # Adafruit IO (AIO) configuration
 AIO_SERVER = "io.adafruit.com"
 AIO_PORT = 1883
-AIO_USER = "Paty_Marklund"
-AIO_KEY = "aio_YreN52bFpnin2Ctj4BWmRA9Gbhm0"
+AIO_USER = "user_name"
+AIO_KEY = "key_name"
 AIO_CLIENT_ID = ubinascii.hexlify(machine.unique_id()) 
 AIO_LIGHTS_FEED = "Paty_Marklund/feeds/lights"
 AIO_TEMP_FEED = "Paty_Marklund/feeds/temperature"
 AIO_HUMID_FEED = "Paty_Marklund/feeds/humidity"
 AIO_MESSAGE_FEED = "Paty_Marklund/feeds/message"
+AIO_HELLO_FEED = "Paty_Marklund/feeds/hello"
 
 # END SETTINGS
 
 # FUNCTIONS
 
 # Callback Function to respond to messages from Adafruit IO
-def sub_cb(topic, msg):          # sub_cb means "callback subroutine"
-    print((topic, msg))          # Outputs the message that was received. Debugging use.
-    if msg == b"ON":             # If message says "ON" ...
-        led.on()                 # ... then LED on
-    elif msg == b"OFF":          # If message says "OFF" ...
-        led.off()                # ... then LED off
-    else:                        # If any other message is received ...
-        print("Unknown message") # ... do nothing but output that it happened.
+def sub_cb(topic, msg):          # sub_cb means "callback subroutine"    
+    received = msg.decode()
+    print((topic, received))              # Outputs the message that was received. Debugging use.
+    message_1 = "Hello!"
+    display_message(message_1, received)
 
-# Function to generate a random number between 0 and the upper_bound
-def random_integer(upper_bound):
-    return random.getrandbits(32) % upper_bound
-
+# Method to get the temperature from the sensor and publish
 def get_temperature():
-    pin = Pin(28, Pin.OUT, Pin.PULL_DOWN)
-    # sensor = DHT11(pin)
     sensor = DHT11(machine.Pin(28))
     global last_random_sent_ticks
     global RANDOMS_INTERVAL
@@ -64,20 +55,17 @@ def get_temperature():
         time.sleep(2)
         try:
             temp = sensor.temperature
-            #prev_temp = temp
             time.sleep(2)
             humid = sensor.humidity
-            #prev_humid = humid
         except:
             print("An exception occurred")  
             continue  
         
-        message_1, message_2 = weather_report(temp, humid)
-        publish_message = message_1 + " / " + message_2
-        
         if (prev_humid is None or prev_temp is None) or (temp != prev_temp and humid != prev_humid):
             prev_temp = temp
             prev_humid = humid
+            message_1, message_2 = weather_report(temp, humid)
+            publish_message = message_1 + " / " + message_2
             display_message(message_1, message_2)
             
         print("Publishing: {0} to {1} ... ".format(temp, AIO_TEMP_FEED), end='')
@@ -88,12 +76,14 @@ def get_temperature():
             client.publish(topic=AIO_TEMP_FEED, msg=str(temp))
             client.publish(topic=AIO_HUMID_FEED, msg=str(humid))
             client.publish(topic=AIO_MESSAGE_FEED, msg=str(publish_message))
+            client.subscribe(AIO_HELLO_FEED)
             print("DONE")
         except Exception as e:
             print("FAILED")
         finally:
             last_random_sent_ticks = time.ticks_ms()
             
+# Method to calculate weather report
 def weather_report(temp, humidity):
     temperature = int(temp)
     message_1 = " "
@@ -123,10 +113,9 @@ def weather_report(temp, humidity):
         message_1 = str(temperature)+"C Too cold"
         message_2 = "Overalls"
         
-    display_message(message_1, message_2)
-        
     return message_1, message_2
     
+# Method to display message on the LCD screen
 def display_message(message_1, message_2):
     I2C_ADDR = i2c.scan()[0]
     lcd = I2cLcd(i2c, I2C_ADDR, 2, 16)
@@ -148,26 +137,21 @@ client = MQTTClient(AIO_CLIENT_ID, AIO_SERVER, AIO_PORT, AIO_USER, AIO_KEY)
 # Subscribed messages will be delivered to this callback
 client.set_callback(sub_cb)
 client.connect()
-client.subscribe(AIO_LIGHTS_FEED)
-print("Connected to %s, subscribed to %s topic" % (AIO_SERVER, AIO_LIGHTS_FEED))
+client.subscribe(AIO_HELLO_FEED)
+print("Connected to %s, subscribed to %s topic" % (AIO_SERVER, AIO_HELLO_FEED))
 
 
 try:                      
-    while 1:              # Repeat this loop forever
-        client.check_msg()# Action a message if one is received. Non-blocking.
+    while 1:              
+        client.check_msg()  # Action a message if one is received. Non-blocking.
         get_temperature()
 finally:                  # If an exception is thrown ...
-    client.disconnect()   # ... disconnect the client and clean up.
+    client.disconnect()   # disconnect the client and clean up.
     client = None
     print("Disconnected from Adafruit IO.")
     
 # TO DO:
     """
-    * Code part:
-    
-    - Send message from dashboard to the display for the weather condition
-    - Separate methods out of the main()
-    - Clean the code
     
     * Theory part 
     
