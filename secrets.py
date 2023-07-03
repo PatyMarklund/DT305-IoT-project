@@ -1,5 +1,5 @@
 secrets = {
-    'ssid' : 'TN-BT5159',
-    'password' : 'finCetDiret8',
+    'ssid' : 'WiFI name',
+    'password' : 'password',
     }
     
