@@ -279,7 +279,7 @@ Show the final results of your project. Give your final thoughts on how you thin
 
 I think the project went pretty good in overall. I learned a lot from building this circuit, connecting the board to the internet and send data to the Adafruit platform
 
-<img src="Pictures/project.png" width="80%" height="70%" />
+<img src="Pictures/dashboard.png" width="80%" height="70%" />
 
 Follow a video presentation of the main functionalities of the project.
 
