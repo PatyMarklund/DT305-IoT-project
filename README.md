@@ -283,6 +283,8 @@ I think the project went pretty good in overall. I learned a lot from building t
 
 Follow a video presentation of the main functionalities of the project.
 
-<video width="360" height="360" controls>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/I7wEemYja3s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+<!-- <video width="360" height="360" controls>
  <source src="Pictures/short_video.mp4" type="video/mp4">
-</video>
+</video> -->
