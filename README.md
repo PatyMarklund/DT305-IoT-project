@@ -265,19 +265,21 @@ The data is sent every 5 min. Which was a choice made so there is enough time to
 MQTT was chosen for this project because it is ligth weith and fast transmition. WIFI has a large bandwidth and low range. But considering the circuit is intalled in my own house there is no need to use another wireless protocol with larger range. This way I can maintain fast communication for the scale of my project. 
 
 ## Presenting the data
-Describe the presentation part. How is the dashboard built? How long is the data preserved in the database?
 
-- Provide visual examples on how the dashboard looks. Pictures needed.
-- How often is data saved in the database.
-- *Explain your choice of database.
-- *Automation/triggers of the data.
+To present the data the chosen platform is Adafruit, which was explained previously. In this session I will show how I present the data. The data is kept in the database of the Adafruit platform.
+
+I use 4 feeds in this project. Two feeds are used to receive the temperature and the humidity values, one feed to receive the messages of weather report from the board and the last feed is to send a message to the board whenever the if statement is trigged. In this case, whenever the temperature raises above 35 degrees.
+
+In the dashboard I set up one block each to show the temperature value, the humidity value, the message received, the message that can be sent back and a graph to log the temperature and humidity for the past 7 days. Note that this time can be changed when necessary.
+
+<img src="Pictures/dashboard.png" width="80%" height="70%" />
 
 ## Finalizing the design
 Show the final results of your project. Give your final thoughts on how you think the project went. What could have been done in an other way, or even better? Pictures are nice!
 
 I think the project went pretty good in overall. I learned a lot from building this circuit, connecting the board to the internet and send data to the Adafruit platform
 
-<!-- <img src="Pictures/project.png" width="80%" height="70%" /> -->
+<img src="Pictures/project.png" width="80%" height="70%" />
 
 Follow a video presentation of the main functionalities of the project.
 
