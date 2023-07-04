@@ -100,7 +100,7 @@ You are now all set to create and run the code.
 
 In this session I will show how to connect the components for the project. In the figure below you can see the exactly connections with the wiring diagram.
 
-<img src="Pictures/diagram.png" width="80%" height="70%" />
+<img src="Pictures/circuit.png" width="80%" height="70%" />
 
 The website used to make the drawing didn't have available the DHT11 sensor, therefore the DHT11 on the circuit has 4 legs, but it should be 3. Also it was not available the interface I2C separated from the display. But the following layout shows exactly how to connect using the interface with the LCD used in this tutorial
 
@@ -275,14 +275,17 @@ In the dashboard I set up one block each to show the temperature value, the humi
 <img src="Pictures/dashboard.png" width="80%" height="70%" />
 
 ## Finalizing the design
-Show the final results of your project. Give your final thoughts on how you think the project went. What could have been done in an other way, or even better? Pictures are nice!
 
-I think the project went pretty good in overall. I learned a lot from building this circuit, connecting the board to the internet and send data to the Adafruit platform
+I think the project went pretty good in overall. I learned a lot from building this circuit, connecting the board to the internet and send data to the Adafruit platform. This part of sending data real-time was something new and exciting to do. 
+
+My idea is to continue with this project, arrange a battery pack so it doesn't need to be powered by the computer, and a box so I can place the sensor outside, while keeping the LCD display inside. So I can read the temperature and humidity from outside. 
+
+Now that I have more knowledge I will try to scalate this project and build more things for my home. 
+
+Follow a picture of the final result:
 
 <img src="Pictures/project.PNG" width="80%" height="70%" />
 
-Follow a video presentation of the main functionalities of the project.
+Follow a short video presentation of the main functionalities of the project.
 
-<!-- <video width="640" height="360" controls>
- <source src="Pictures/presentation.mp4" type="video/mp4">
-</video> -->
+[![YouTube Video](https://img.youtube.com/vi/I7wEemYja3s/0.jpg)](https://www.youtube.com/watch?v=I7wEemYja3s)
