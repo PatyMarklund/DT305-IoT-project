@@ -275,7 +275,6 @@ In the dashboard I set up one block each to show the temperature value, the humi
 <img src="Pictures/dashboard.png" width="80%" height="70%" />
 
 ## Finalizing the design
-Show the final results of your project. Give your final thoughts on how you think the project went. What could have been done in an other way, or even better? Pictures are nice!
 
 I think the project went pretty good in overall. I learned a lot from building this circuit, connecting the board to the internet and send data to the Adafruit platform. This part of sending data real-time was something new and exciting to do. 
 
