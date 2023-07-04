@@ -100,7 +100,7 @@ You are now all set to create and run the code.
 
 In this session I will show how to connect the components for the project. In the figure below you can see the exactly connections with the wiring diagram.
 
-<img src="Pictures/diagram.png" width="80%" height="70%" />
+<img src="Pictures/circuit.png" width="80%" height="70%" />
 
 The website used to make the drawing didn't have available the DHT11 sensor, therefore the DHT11 on the circuit has 4 legs, but it should be 3. Also it was not available the interface I2C separated from the display. But the following layout shows exactly how to connect using the interface with the LCD used in this tutorial
 
