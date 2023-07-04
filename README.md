@@ -1,4 +1,4 @@
-<!-- # IoT_project
+# IoT_project
 1DT305 - Introduction to Applied IoT summer 2023
 # __Weather information and best cloths for the occasion__
 __Author: Patricia Antunes Marklund (pa222zn)__
@@ -277,10 +277,10 @@ Show the final results of your project. Give your final thoughts on how you thin
 
 I think the project went pretty good in overall. I learned a lot from building this circuit, connecting the board to the internet and send data to the Adafruit platform
 
-<img src="Pictures/project.png" width="80%" height="70%" />
+<!-- <img src="Pictures/project.png" width="80%" height="70%" /> -->
 
 Follow a video presentation of the main functionalities of the project.
 
 <!-- <video width="640" height="360" controls>
  <source src="Pictures/presentation.mp4" type="video/mp4">
-</video> --> -->
+</video> -->
