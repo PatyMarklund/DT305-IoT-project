@@ -277,14 +277,16 @@ In the dashboard I set up one block each to show the temperature value, the humi
 ## Finalizing the design
 Show the final results of your project. Give your final thoughts on how you think the project went. What could have been done in an other way, or even better? Pictures are nice!
 
-I think the project went pretty good in overall. I learned a lot from building this circuit, connecting the board to the internet and send data to the Adafruit platform
+I think the project went pretty good in overall. I learned a lot from building this circuit, connecting the board to the internet and send data to the Adafruit platform. This part of sending data real-time was something new and exciting to do. 
+
+My idea is to continue with this project, arrange a battery pack so it doesn't need to be powered by the computer, and a box so I can place the sensor outside, while keeping the LCD display inside. So I can read the temperature and humidity from outside. 
+
+Now that I have more knowledge I will try to scalate this project and build more things for my home. 
+
+Follow a picture of the final result:
 
 <img src="Pictures/project.PNG" width="80%" height="70%" />
 
-Follow a video presentation of the main functionalities of the project.
+Follow a short video presentation of the main functionalities of the project.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/I7wEemYja3s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-<!-- <video width="360" height="360" controls>
- <source src="Pictures/short_video.mp4" type="video/mp4">
-</video> -->
+[![YouTube Video](https://img.youtube.com/vi/I7wEemYja3s/0.jpg)](https://www.youtube.com/watch?v=I7wEemYja3s)
