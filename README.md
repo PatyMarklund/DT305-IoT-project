@@ -274,7 +274,7 @@ To present the data the chosen platform is Adafruit, which was explained previou
 
 I use 4 feeds in this project. Two feeds are used to receive the temperature and the humidity values (feeds are called temperature and humidity). Another feed called message to receive the messages of weather report from the board, and the last feed called Hello is to send a message to the board whenever the if statement is trigged. In this case, whenever the temperature raises above 35 degrees (see picture below). I am also sending a message to my personal email at a set time with the message received from the message feed. For now I have it set for once a day @7:00
 
-<img src="Pictures/adafruit_actions.png" width="80%" height="70%" />
+<img src="Pictures/adafruit_actions.PNG" width="80%" height="70%" />
 
 In the dashboard I set up one block each to show the temperature value, the humidity value, the message received from the board, the message that can be sent back and a graph to log the temperature and humidity for the past 7 days. Note that this time can be changed when necessary.
 
