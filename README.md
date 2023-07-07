@@ -86,7 +86,7 @@ The IDE used in this project is Visual Studio Code, which is a great tool as int
 
 - __Step 5__: Create project
 
-    A new icon will show up on the left tab of VS code IDE. Click on the Pymakr icon and click on create a new project. Give a name to the project and select empty.
+    A new icon will show up on the left tab of VS code IDE (see next figure, marked with 4). Click on the Pymakr icon and click on create a new project. Give a name to the project and select empty.
 
 - __Step 6__: Add the raspberry board to the project and connect
 
@@ -129,6 +129,8 @@ The choice for this platform was made because it is beginners friendly to set up
 ## __The code__
 
 For programming this project I am using Micropython for the language. We have in the code the following modules: *dht.py* (library for the temperature sensor), *lcd_api.py* (library for the LCD1602), *mqtt.py* (configuration for mqtt protocol), *pico_i2c_lcd.py* (configuration for I2C), *secrets.py* (wifi user id and password), *wifi.py* (wifi connection) and *main.py* (all code runs here).
+
+__*Note*__: The module *secrets.py* should contain your own user and password from your local WiFi. I could have added that to git ignore, but I prefered to keep the file and advise that the personal information must to be changed. 
 
 In the first part of the code in the *main.py* there is the importing session. Where we import the main libraries to run the code (such as time, machine). As well as the libraries to run the harware components (such as the DHT11).
 
@@ -272,7 +274,9 @@ To present the data the chosen platform is Adafruit, which was explained previou
 
 I use 4 feeds in this project. Two feeds are used to receive the temperature and the humidity values (feeds are called temperature and humidity). Another feed called message to receive the messages of weather report from the board, and the last feed called Hello is to send a message to the board whenever the if statement is trigged. In this case, whenever the temperature raises above 35 degrees (see picture below). I am also sending a message to my personal email at a set time with the message received from the message feed. For now I have it set for once a day @7:00
 
-In the dashboard I set up one block each to show the temperature value, the humidity value, the message received, the message that can be sent back and a graph to log the temperature and humidity for the past 7 days. Note that this time can be changed when necessary.
+<img src="Pictures/adafruit_actions.png" width="80%" height="70%" />
+
+In the dashboard I set up one block each to show the temperature value, the humidity value, the message received from the board, the message that can be sent back and a graph to log the temperature and humidity for the past 7 days. Note that this time can be changed when necessary.
 
 <img src="Pictures/dashboard.png" width="80%" height="70%" />
 
