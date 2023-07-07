@@ -264,17 +264,19 @@ The data is sent every 5 min. Which was a choice made so there is enough time to
 
 MQTT was chosen for this project because it is ligth weith and fast transmition. WIFI has a large bandwidth and low range. But considering the circuit is intalled in my own house there is no need to use another wireless protocol with larger range. This way I can maintain fast communication for the scale of my project. 
 
-## Presenting the data
+## __Presenting the data__
 
-To present the data the chosen platform is Adafruit, which was explained previously. In this session I will show how I present the data. The data is kept in the database of the Adafruit platform.
+- Need to put a screen shot of the actions and explain how it it triged
 
-I use 4 feeds in this project. Two feeds are used to receive the temperature and the humidity values, one feed to receive the messages of weather report from the board and the last feed is to send a message to the board whenever the if statement is trigged. In this case, whenever the temperature raises above 35 degrees.
+To present the data the chosen platform is Adafruit, which was explained previously. In this session I will show how I present the data. The data is kept in the database of the Adafruit platform for 30 days. While I send publish and subscribe to the client every 5 minutes.
+
+I use 4 feeds in this project. Two feeds are used to receive the temperature and the humidity values (feeds are called temperature and humidity). Another feed called message to receive the messages of weather report from the board, and the last feed called Hello is to send a message to the board whenever the if statement is trigged. In this case, whenever the temperature raises above 35 degrees (see picture below). I am also sending a message to my personal email at a set time with the message received from the message feed. For now I have it set for once a day @7:00
 
 In the dashboard I set up one block each to show the temperature value, the humidity value, the message received, the message that can be sent back and a graph to log the temperature and humidity for the past 7 days. Note that this time can be changed when necessary.
 
 <img src="Pictures/dashboard.png" width="80%" height="70%" />
 
-## Finalizing the design
+## __Finalizing the design__
 
 I think the project went pretty good in overall. I learned a lot from building this circuit, connecting the board to the internet and send data to the Adafruit platform. This part of sending data real-time was something new and exciting to do. 
 
